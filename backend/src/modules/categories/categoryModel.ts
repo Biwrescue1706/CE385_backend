@@ -1,3 +1,4 @@
+import { commonValidations } from "@common/utils/commonValidation";
 import { z } from "zod";
 
 export type TypePayloadCategory = {
@@ -9,3 +10,23 @@ export const CreateCategorySchema = z.object({
         category_name: z.string().max(50),
     })
 })
+
+export const UpdateCategorySchema = z.object({
+    body: z.object({
+        id: z.string().uuid(),
+        category_name: z.string().max(50),
+    })
+});
+
+export const GetCategorySchema = z.object({
+    body: z.object({
+        id: z.string().uuid(),
+    })
+});
+
+export const GetParamCategorySchema = z.object({
+    params: z.object({
+        id: commonValidations.uuid,
+    })
+});
+

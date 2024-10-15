@@ -35,4 +35,34 @@ export const categoryRepository = {
             data: setPayload,
         })
     },
+    findByIdAsync: async <Key extends keyof categories>(
+        id: string,
+        keys = Keys as Key[]
+    ) => {
+        return prisma.categories.findUnique({
+            where: {id: id},
+            select: keys.reduce((obj, k) => ({...obj, [k]: true}), {}),
+        }) as Promise<Pick<categories, Key> | null>;
+    },
+    update: async(
+        id: string,
+        payload: TypePayloadCategory
+    ) => {
+        const trimId = id.trim();
+        const trimCategoryName = payload.category_name.trim();
+        const setPayload: any = {
+            category_name: trimCategoryName
+        }
+        return await prisma.categories.update({
+            where: { id: trimId },
+            data: setPayload,
+        })
+    },
+    delete: async(id: string) => {
+        const trimId = id.trim();
+        return await prisma.categories.delete({
+            where: { id: trimId }
+        })
+    },
+
 }
