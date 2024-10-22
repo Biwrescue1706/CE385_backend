@@ -7,6 +7,7 @@ import { env } from "@common/utils/envConfig";
 import errorHandler from "@common/middleware/errorHandler";
 
 import { categoryRouter } from "@modules/categories/categoryRouter";
+import { productRouter } from "@modules/products/productRouter";
 
 const logger = pino({ name: "server start" });
 const app = express();
@@ -20,6 +21,7 @@ app.use(helmet());
 
 // Routes
 app.use("/v1/category", categoryRouter);
+app.use("/v1/product", productRouter);
 
 // test
 app.use("/test", (req: Request, res: Response) => {
